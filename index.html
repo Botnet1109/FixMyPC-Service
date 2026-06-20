@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FixMyPC Service - Software Help & Vlogs</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0D0F14;
+  --surface: #151820;
+  --card: #1C202B;
+  --border: #252933;
+  --accent: #00D4FF;
+  --purple: #7B61FF;
+  --green: #00E57B;
+  --orange: #FFB347;
+  --text: #E8EAF0;
+  --muted: #7A8099;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #0D0F14;
+  color: #E8EAF0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background-color: rgba(13,15,20,0.95);
+  border-bottom: 1px solid #252933;
+}
+.logo { font-size: 1.3rem; font-weight: 700; color: #E8EAF0; text-decoration: none; }
+.logo span { color: #00D4FF; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { color: #7A8099; text-decoration: none; font-size: 0.9rem; }
+.nav-links a:hover { color: #00D4FF; }
+.nav-btn {
+  background-color: #00D4FF;
+  color: #0D0F14;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  background-color: #0D0F14;
+}
+.badge {
+  display: inline-block;
+  background-color: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: #00D4FF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  max-width: 700px;
+}
+.hero h1 .blue { color: #00D4FF; display: block; }
+.hero p {
+  color: #7A8099;
+  font-size: 1.1rem;
+  max-width: 520px;
+  margin: 0 auto 36px;
+}
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.btn-main {
+  background-color: #00D4FF;
+  color: #0D0F14;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.btn-outline {
+  border: 1px solid #252933;
+  color: #E8EAF0;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.btn-outline:hover { border-color: #00D4FF; color: #00D4FF; }
+
+/* SECTIONS */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+.section-divider { border-top: 1px solid #252933; }
+.label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #00D4FF;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.section-sub {
+  color: #7A8099;
+  max-width: 500px;
+  margin-bottom: 48px;
+}
+
+/* SERVICES GRID */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.card {
+  background-color: #1C202B;
+  border: 1px solid #252933;
+  border-radius: 12px;
+  padding: 28px;
+}
+.card:hover { border-color: #7B61FF; }
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+.ic-blue { background-color: rgba(0,212,255,0.1); }
+.ic-purple { background-color: rgba(123,97,255,0.1); }
+.ic-green { background-color: rgba(0,229,123,0.1); }
+.ic-orange { background-color: rgba(255,165,0,0.1); }
+.card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.card p { color: #7A8099; font-size: 0.88rem; line-height: 1.6; }
+
+/* NOTICE */
+.notice {
+  margin-top: 32px;
+  background-color: rgba(255,165,0,0.06);
+  border: 1px solid rgba(255,165,0,0.3);
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.notice-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.notice p { color: #FFB347; font-size: 0.88rem; line-height: 1.7; }
+.notice strong { color: #FFD080; }
+
+/* VLOGS */
+.vlog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.vlog-card {
+  background-color: #1C202B;
+  border: 1px solid #252933;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #E8EAF0;
+  display: block;
+}
+.vlog-card:hover { border-color: #7B61FF; }
+.vlog-thumb {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #1C202B, #252933);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #7A8099;
+  font-size: 0.8rem;
+}
+.play {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background-color: rgba(0,212,255,0.12);
+  border: 2px solid #00D4FF;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  color: #00D4FF;
+}
+.vlog-body { padding: 20px; }
+.vlog-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7B61FF;
+  margin-bottom: 6px;
+}
+.vlog-body h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+.vlog-body p { color: #7A8099; font-size: 0.82rem; }
+.center { text-align: center; margin-top: 32px; }
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.contact-info h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+.contact-info p { color: #7A8099; line-height: 1.7; margin-bottom: 24px; }
+.bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.bullets li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background-color: #00E57B; flex-shrink: 0; }
+
+.form-box {
+  background-color: #1C202B;
+  border: 1px solid #252933;
+  border-radius: 14px;
+  padding: 32px;
+}
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label { font-size: 0.8rem; font-weight: 600; color: #7A8099; }
+.field input,
+.field select,
+.field textarea {
+  background-color: #151820;
+  border: 1px solid #252933;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #E8EAF0;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  width: 100%;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: #00D4FF; }
+.field textarea { resize: vertical; min-height: 120px; }
+.field select option { background-color: #1C202B; }
+.submit {
+  width: 100%;
+  background-color: #00D4FF;
+  color: #0D0F14;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+}
+.submit:hover { opacity: 0.88; }
+.success { display: none; text-align: center; padding: 32px 16px; }
+.success .tick { font-size: 3rem; margin-bottom: 16px; }
+.success h3 { font-size: 1.2rem; color: #00E57B; margin-bottom: 8px; }
+.success p { color: #7A8099; font-size: 0.9rem; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid #252933;
+  padding: 32px 24px;
+  text-align: center;
+  color: #7A8099;
+  font-size: 0.85rem;
+}
+footer a { color: #00D4FF; text-decoration: none; }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .hero h1 { font-size: 2rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Fix<span>MyPC</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#vlogs">Vlogs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-btn" href="#contact">Get Help</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">&#9679; Available for remote support</div>
+  <h1>
+    Your PC acting up?
+    <span class="blue">I'll fix it.</span>
+  </h1>
+  <p>Windows, Linux, Mac, printer drivers, software crashes — if it's a software problem I can sort it out. Watch my vlogs or reach out directly.</p>
+  <div class="hero-btns">
+    <a class="btn-main" href="#contact">Contact Me</a>
+    <a class="btn-outline" href="#vlogs">Watch Vlogs</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="section-divider">
+<div class="section" id="services">
+  <p class="label">What I fix</p>
+  <h2 class="section-title">Software problems — done right</h2>
+  <p class="section-sub">I specialise in software fixes and basic hardware part swaps for laptops, desktops and printers.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon ic-blue">&#128759;</div>
+      <h3>Windows Installation &amp; Repair</h3>
+      <p>Fresh installs, upgrades, activation issues, driver setup, startup failures, and Windows update errors.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-purple">&#128039;</div>
+      <h3>Linux Setup &amp; Support</h3>
+      <p>Ubuntu, Fedora, Mint, Arch — distro installs, dual boot config, package issues, and terminal help.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-green">&#63743;</div>
+      <h3>macOS Troubleshooting</h3>
+      <p>Slow Mac, app crashes, software conflicts, permission errors, and system clean-up.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-orange">&#128424;</div>
+      <h3>Printer Software Issues</h3>
+      <p>Driver installation, printer not detected, stuck print queues, wireless setup — software side only.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-blue">&#128034;</div>
+      <h3>Slow PC Optimisation</h3>
+      <p>Startup bloat removal, background process cleanup, disk space issues, and performance tuning.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-purple">&#129440;</div>
+      <h3>Virus &amp; Malware Removal</h3>
+      <p>Software-level removal of malware, adware, and unwanted programs to restore your system.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-green">&#128191;</div>
+      <h3>Software Installation &amp; Troubleshooting</h3>
+      <p>Installing apps, fixing software that won't open or keeps crashing, and resolving compatibility issues.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon ic-orange">&#128295;</div>
+      <h3>Basic Hardware Part Replacement</h3>
+      <p>Swapping RAM, storage drives, keyboards, and other basic parts. No chip-level or soldering work.</p>
+    </div>
+  </div>
+
+  <div class="notice">
+    <span class="notice-icon">&#9888;&#65039;</span>
+    <p>
+      <strong>Please note:</strong> I handle <strong>software issues</strong> and <strong>basic part replacements</strong> such as RAM, SSDs, and keyboards.
+      I do <strong>not</strong> do chip-level or motherboard repairs. If it needs soldering or board-level work, you'll need a specialist — but for everything else, I've got you covered.
+    </p>
+  </div>
+</div>
+</div>
+
+<!-- VLOGS -->
+<div class="section-divider" id="vlogs">
+<div class="section">
+  <p class="label">Vlogs</p>
+  <h2 class="section-title">Watch, learn, fix it yourself</h2>
+  <p class="section-sub">Tutorials and tech tips updated regularly. Replace the links below with your YouTube videos.</p>
+
+  <div class="vlog-grid">
+    <a class="vlog-card" href="#" target="_blank">
+      <div class="vlog-thumb">
+        <div class="play">&#9654;</div>
+        <span>Add your YouTube link</span>
+      </div>
+      <div class="vlog-body">
+        <p class="vlog-tag">Windows</p>
+        <h3>How to do a Clean Windows 11 Install from USB</h3>
+        <p>Step-by-step guide — no bloatware, no confusion.</p>
+      </div>
+    </a>
+    <a class="vlog-card" href="#" target="_blank">
+      <div class="vlog-thumb">
+        <div class="play">&#9654;</div>
+        <span>Add your YouTube link</span>
+      </div>
+      <div class="vlog-body">
+        <p class="vlog-tag">Linux</p>
+        <h3>Ubuntu vs Linux Mint — Which Should You Install?</h3>
+        <p>Honest comparison for everyday users switching from Windows.</p>
+      </div>
+    </a>
+    <a class="vlog-card" href="#" target="_blank">
+      <div class="vlog-thumb">
+        <div class="play">&#9654;</div>
+        <span>Add your YouTube link</span>
+      </div>
+      <div class="vlog-body">
+        <p class="vlog-tag">Printer</p>
+        <h3>Fix: Printer Not Showing Up on Windows 10/11</h3>
+        <p>Driver reset, spooler fix, and manual IP setup — all covered.</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="center">
+    <a class="btn-outline" href="#" target="_blank">&#9654; &nbsp; View All Videos on YouTube</a>
+  </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="section-divider" id="contact">
+<div class="section">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p class="label">Get in touch</p>
+      <h2>Describe your issue — I'll take a look</h2>
+      <p>Fill in the form with as much detail as you can. I'll get back to you with a fix, a video call, or a step-by-step guide.</p>
+      <ul class="bullets">
+        <li><span class="dot"></span> Windows, Linux &amp; macOS issues</li>
+        <li><span class="dot"></span> Printer driver &amp; software problems</li>
+        <li><span class="dot"></span> Slow or crashing computers</li>
+        <li><span class="dot"></span> Virus &amp; malware removal</li>
+        <li><span class="dot"></span> Software installation &amp; troubleshooting</li>
+        <li><span class="dot"></span> OS installation &amp; dual boot setup</li>
+        <li><span class="dot"></span> Basic part replacements (RAM, SSD, keyboard)</li>
+        <li><span class="dot"></span> Remote sessions available</li>
+      </ul>
+    </div>
+
+    <div class="form-box">
+      <div id="form-fields">
+        <div class="row2">
+          <div class="field">
+            <label>Your Name</label>
+            <input type="text" id="f-name" placeholder="Alex Smith">
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" id="f-email" placeholder="alex@email.com">
+          </div>
+        </div>
+        <div class="field">
+          <label>Type of Issue</label>
+          <select id="f-issue">
+            <option value="" disabled selected>Select a category...</option>
+            <option>Windows — Installation / Repair</option>
+            <option>Windows — Slow / Crashing</option>
+            <option>Linux — Install / Setup</option>
+            <option>macOS — Troubleshooting</option>
+            <option>Printer — Driver / Software</option>
+            <option>Virus / Malware Removal</option>
+            <option>Software Installation / Troubleshooting</option>
+            <option>Basic Hardware Part Replacement</option>
+            <option>Other Issue</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Device &amp; OS (e.g. Dell laptop, Windows 11)</label>
+          <input type="text" id="f-device" placeholder="HP laptop, Windows 10">
+        </div>
+        <div class="field">
+          <label>Describe the Problem</label>
+          <textarea id="f-msg" placeholder="Tell me what's happening — error messages, when it started, what you've already tried..."></textarea>
+        </div>
+        <button class="submit" onclick="submitForm()">Send Message &rarr;</button>
+      </div>
+
+      <div class="success" id="form-success">
+        <div class="tick">&#9989;</div>
+        <h3>Message received!</h3>
+        <p>Thanks for reaching out. I'll review your issue and get back to you as soon as possible.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 FixMyPC Service &nbsp;&middot;&nbsp; Software help for real people &nbsp;&middot;&nbsp; Built with &#10084;&#65039;</p>
+  <p style="margin-top:8px; font-size:0.8rem;">Software fixes + basic part replacements &mdash; no chip-level or motherboard repairs.</p>
+</footer>
+
+<script>
+function submitForm() {
+  var name = document.getElementById('f-name').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var issue = document.getElementById('f-issue').value;
+  var msg = document.getElementById('f-msg').value.trim();
+  if (!name || !email || !issue || !msg) {
+    alert('Please fill in all fields before sending.');
+    return;
+  }
+  document.getElementById('form-fields').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
