@@ -7,7 +7,7 @@ My personal tech support and vlog website.
 - Printer software issues
 - Software installation & troubleshooting
 - Basic hardware part replacements
- 
+- System build 
 ## Built with
 HTML & CSS — single file, no frameworks.
  
