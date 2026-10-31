@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://botnet1109.github.io/FixMyPC-Service/sitemap.xml
