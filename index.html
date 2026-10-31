@@ -8,6 +8,8 @@
 <meta name="author" content="Varun Singh">
 <meta name="theme-color" content="#0D0F14">
 <link rel="canonical" href="https://botnet1109.github.io/FixMyPC-Service/">
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="dns-prefetch" href="https://i.ytimg.com">
 
 <!-- Social preview (WhatsApp, X, LinkedIn, Discord) -->
 <meta property="og:type" content="website">
@@ -15,7 +17,12 @@
 <meta property="og:title" content="FixMyPC Service — Your PC acting up? I'll fix it.">
 <meta property="og:description" content="Remote software support for Windows, Linux and macOS. Watch the vlogs or describe your issue and get it fixed.">
 <meta property="og:url" content="https://botnet1109.github.io/FixMyPC-Service/">
+<meta property="og:image" content="https://botnet1109.github.io/FixMyPC-Service/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FixMyPC Service — remote software support for Windows, Linux and macOS">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://botnet1109.github.io/FixMyPC-Service/og-image.png">
 <meta name="twitter:title" content="FixMyPC Service — Your PC acting up? I'll fix it.">
 <meta name="twitter:description" content="Remote software support for Windows, Linux and macOS.">
 
@@ -351,6 +358,24 @@ nav {
   transition: background-color 0.2s, transform 0.2s;
 }
 .vlog-card:hover .play { background-color: #00D4FF; color: #0D0F14; transform: scale(1.08); }
+.vlog-card.coming { cursor: default; border-style: dashed; }
+.vlog-card.coming:hover { border-color: #252933; transform: none; }
+.soon {
+  position: relative; z-index: 2;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #7A8099;
+  background-color: rgba(13,15,20,0.75);
+  border: 1px solid #252933;
+  padding: 3px 10px; border-radius: 100px;
+}
+.copy-btn {
+  width: 100%; margin-top: 10px;
+  background-color: transparent; color: #00D4FF;
+  border: 1px solid #252933; border-radius: 8px;
+  padding: 12px; font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; font-family: Arial, Helvetica, sans-serif;
+}
+.copy-btn:hover { border-color: #00D4FF; }
 .vlog-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
 .vlog-tag {
   font-size: 0.72rem;
@@ -763,10 +788,11 @@ footer a:hover { text-decoration: underline; }
         </div>
         <div class="form-err" id="form-err" role="alert"></div>
         <button class="submit" id="submit-btn" type="button">Send Message &rarr;</button>
-        <p class="form-note">This opens your email app with the details filled in. Prefer to write directly? <a id="direct-email" href="#">Email me instead</a>.</p>
+        <button class="copy-btn" id="copy-btn" type="button">Or copy the details instead</button>
+        <p class="form-note">Send Message opens your email app with everything filled in. No mail app? Copy the details and paste them into an email to <a id="direct-email" href="#">the address shown here</a>.</p>
       </div>
 
-      <div class="success" id="form-success">
+      <div class="success" id="form-success" aria-live="polite">
         <div class="tick">&#9989;</div>
         <h3>Almost there &mdash; hit send</h3>
         <p>Your email app should have opened with everything filled in. Just press send and I'll get back to you.</p>
@@ -813,8 +839,8 @@ var EMAIL = "Varunsingh09@proton.me";
 //   https://www.youtube.com/live/dQw4w9WgXcQ
 //
 // Fields:
-//   url   — the YouTube link (required). Leave as "" to show a
-//           card that just links to your channel instead.
+//   url   — the YouTube link. Leave as "" and the card shows a
+//           "Coming soon" badge instead of a dead link.
 //   tag   — small purple label, e.g. "Windows", "Linux", "Printer"
 //   title — video title
 //   desc  — one short line of description
@@ -882,27 +908,33 @@ var VIDEOS = [
   if (grid) {
     grid.innerHTML = VIDEOS.map(function (v) {
       var id = videoId(v.url);
-      var href = id ? ("https://www.youtube.com/watch?v=" + id) : CHANNEL_URL;
       var thumb = "";
 
       if (id) {
         thumb =
           '<img src="https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg" ' +
-          'alt="" loading="lazy" ' +
+          'alt="" loading="lazy" width="1280" height="720" ' +
           'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg\'">';
       }
 
+      // No link yet -> an honest "coming soon" card rather than a dead link
+      var soon = id ? '' : '<span class="soon">Coming soon</span>';
+      var openTag = id
+        ? '<a class="vlog-card" href="https://www.youtube.com/watch?v=' + esc(id) + '" target="_blank" rel="noopener">'
+        : '<div class="vlog-card coming">';
+      var closeTag = id ? '</a>' : '</div>';
+
       return (
-        '<a class="vlog-card" href="' + esc(href) + '" target="_blank" rel="noopener">' +
+        openTag +
           '<div class="vlog-thumb">' + thumb +
-            '<div class="play">&#9654;</div>' +
+            '<div class="play">&#9654;</div>' + soon +
           '</div>' +
           '<div class="vlog-body">' +
             (v.tag ? '<p class="vlog-tag">' + esc(v.tag) + '</p>' : '') +
             '<h3>' + esc(v.title) + '</h3>' +
             (v.desc ? '<p>' + esc(v.desc) + '</p>' : '') +
           '</div>' +
-        '</a>'
+        closeTag
       );
     }).join("");
   }
@@ -1008,6 +1040,53 @@ var VIDEOS = [
     resetBtn.addEventListener("click", function () {
       success.style.display = "none";
       fields.style.display = "block";
+    });
+  }
+
+  // --- Keep the mobile drawer flush under the nav (height varies by width) ---
+  function syncMenuOffset() {
+    var navEl = document.querySelector("nav");
+    if (navEl && menu) menu.style.top = navEl.offsetHeight + "px";
+  }
+  syncMenuOffset();
+  window.addEventListener("resize", syncMenuOffset);
+
+  // --- Copy details: fallback for anyone without a mail app ---
+  var copyBtn = document.getElementById("copy-btn");
+  var copyLabel = copyBtn ? copyBtn.textContent : "";
+
+  function formText() {
+    return "Name: " + nameEl.value + "\n" +
+      "Email: " + emailEl.value + "\n" +
+      "Issue: " + (issueEl.value || "(not selected)") + "\n" +
+      "Device / OS: " + (deviceEl.value || "not specified") + "\n\n" +
+      "Problem:\n" + msgEl.value;
+  }
+
+  function legacyCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "-1000px";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); done(); }
+    catch (e) { window.prompt("Copy this text and email it to " + EMAIL, text); }
+    document.body.removeChild(ta);
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function () {
+      var done = function () {
+        copyBtn.textContent = "Copied \u2014 paste into an email to " + EMAIL;
+        setTimeout(function () { copyBtn.textContent = copyLabel; }, 5000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(formText()).then(done, function () { legacyCopy(formText(), done); });
+      } else {
+        legacyCopy(formText(), done);
+      }
     });
   }
 
