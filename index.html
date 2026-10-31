@@ -3,7 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FixMyPC Service - Software Help & Vlogs</title>
+<title>FixMyPC Service — Software Help &amp; Tech Vlogs | Varun Singh</title>
+<meta name="description" content="On-demand remote IT and desktop support for Windows, Linux and macOS. Software fixes, printer drivers, malware removal, OS installs and basic part replacements. Plus free tutorial vlogs on YouTube.">
+<meta name="author" content="Varun Singh">
+<meta name="theme-color" content="#0D0F14">
+<link rel="canonical" href="https://botnet1109.github.io/FixMyPC-Service/">
+
+<!-- Social preview (WhatsApp, X, LinkedIn, Discord) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FixMyPC Service">
+<meta property="og:title" content="FixMyPC Service — Your PC acting up? I'll fix it.">
+<meta property="og:description" content="Remote software support for Windows, Linux and macOS. Watch the vlogs or describe your issue and get it fixed.">
+<meta property="og:url" content="https://botnet1109.github.io/FixMyPC-Service/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FixMyPC Service — Your PC acting up? I'll fix it.">
+<meta name="twitter:description" content="Remote software support for Windows, Linux and macOS.">
+
+<!-- Inline SVG favicon: no extra file needed -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230D0F14'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='30' font-weight='bold' text-anchor='middle' fill='%2300D4FF'%3EF%3C/text%3E%3C/svg%3E">
+
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,15 +38,31 @@
   --muted: #7A8099;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
 
 body {
   background-color: #0D0F14;
   color: #E8EAF0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
+img { max-width: 100%; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid #00D4FF;
+  outline-offset: 2px;
+}
+
+/* Skip link for keyboard users */
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: #00D4FF; color: #0D0F14;
+  padding: 10px 18px; border-radius: 0 0 8px 0;
+  font-weight: 700; text-decoration: none; z-index: 1000;
+}
+.skip:focus { left: 0; }
 
 /* NAV */
 nav {
@@ -38,8 +72,10 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   padding: 16px 32px;
   background-color: rgba(13,15,20,0.95);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid #252933;
 }
 .logo { font-size: 1.3rem; font-weight: 700; color: #E8EAF0; text-decoration: none; }
@@ -47,6 +83,7 @@ nav {
 .nav-links { display: flex; gap: 32px; list-style: none; }
 .nav-links a { color: #7A8099; text-decoration: none; font-size: 0.9rem; }
 .nav-links a:hover { color: #00D4FF; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
 .nav-btn {
   background-color: #00D4FF;
   color: #0D0F14;
@@ -55,7 +92,44 @@ nav {
   font-weight: 700;
   font-size: 0.88rem;
   text-decoration: none;
+  white-space: nowrap;
 }
+.nav-btn:hover { opacity: 0.88; }
+.nav-yt {
+  display: inline-flex; align-items: center; gap: 7px;
+  color: #E8EAF0; text-decoration: none;
+  font-size: 0.88rem; font-weight: 600;
+  padding: 8px 14px; border-radius: 6px;
+  border: 1px solid #252933;
+  white-space: nowrap;
+}
+.nav-yt:hover { border-color: #FF0000; color: #FF5B5B; }
+.menu-btn {
+  display: none;
+  background: none; border: 1px solid #252933; border-radius: 6px;
+  color: #E8EAF0; font-size: 1.2rem; line-height: 1;
+  padding: 8px 12px; cursor: pointer;
+}
+
+/* Mobile drawer */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 65px; left: 0; right: 0;
+  z-index: 998;
+  background-color: #151820;
+  border-bottom: 1px solid #252933;
+  padding: 8px 24px 20px;
+  flex-direction: column;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  color: #E8EAF0; text-decoration: none;
+  padding: 13px 0; font-size: 0.95rem;
+  border-bottom: 1px solid #252933;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: #00D4FF; }
 
 /* HERO */
 .hero {
@@ -92,7 +166,7 @@ nav {
 .hero p {
   color: #7A8099;
   font-size: 1.1rem;
-  max-width: 520px;
+  max-width: 540px;
   margin: 0 auto 36px;
 }
 .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
@@ -105,6 +179,7 @@ nav {
   font-size: 0.95rem;
   text-decoration: none;
 }
+.btn-main:hover { opacity: 0.88; }
 .btn-outline {
   border: 1px solid #252933;
   color: #E8EAF0;
@@ -113,8 +188,20 @@ nav {
   font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none;
+  display: inline-flex; align-items: center; gap: 9px;
 }
 .btn-outline:hover { border-color: #00D4FF; color: #00D4FF; }
+.btn-yt {
+  background-color: #FF0000;
+  color: #fff;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 9px;
+}
+.btn-yt:hover { opacity: 0.88; }
 
 /* SECTIONS */
 .section {
@@ -135,10 +222,11 @@ nav {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 12px;
+  line-height: 1.25;
 }
 .section-sub {
   color: #7A8099;
-  max-width: 500px;
+  max-width: 560px;
   margin-bottom: 48px;
 }
 
@@ -153,8 +241,9 @@ nav {
   border: 1px solid #252933;
   border-radius: 12px;
   padding: 28px;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.card:hover { border-color: #7B61FF; }
+.card:hover { border-color: #7B61FF; transform: translateY(-2px); }
 .card-icon {
   width: 44px; height: 44px;
   border-radius: 10px;
@@ -184,6 +273,33 @@ nav {
 .notice p { color: #FFB347; font-size: 0.88rem; line-height: 1.7; }
 .notice strong { color: #FFD080; }
 
+/* HOW IT WORKS */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  counter-reset: step;
+}
+.step {
+  background-color: #151820;
+  border: 1px solid #252933;
+  border-radius: 12px;
+  padding: 26px;
+  position: relative;
+}
+.step-num {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background-color: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.35);
+  color: #00D4FF;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem;
+  margin-bottom: 14px;
+}
+.step h3 { font-size: 0.98rem; font-weight: 600; margin-bottom: 7px; }
+.step p { color: #7A8099; font-size: 0.87rem; }
+
 /* VLOGS */
 .vlog-grid {
   display: grid;
@@ -197,10 +313,13 @@ nav {
   overflow: hidden;
   text-decoration: none;
   color: #E8EAF0;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.vlog-card:hover { border-color: #7B61FF; }
+.vlog-card:hover { border-color: #7B61FF; transform: translateY(-2px); }
 .vlog-thumb {
+  position: relative;
   aspect-ratio: 16/9;
   background: linear-gradient(135deg, #1C202B, #252933);
   display: flex;
@@ -210,17 +329,29 @@ nav {
   gap: 10px;
   color: #7A8099;
   font-size: 0.8rem;
+  overflow: hidden;
 }
-.play {
+.vlog-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vlog-thumb .play {
+  position: relative;
+  z-index: 2;
   width: 52px; height: 52px;
   border-radius: 50%;
-  background-color: rgba(0,212,255,0.12);
+  background-color: rgba(13,15,20,0.75);
   border: 2px solid #00D4FF;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem;
   color: #00D4FF;
+  transition: background-color 0.2s, transform 0.2s;
 }
-.vlog-body { padding: 20px; }
+.vlog-card:hover .play { background-color: #00D4FF; color: #0D0F14; transform: scale(1.08); }
+.vlog-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
 .vlog-tag {
   font-size: 0.72rem;
   font-weight: 700;
@@ -231,65 +362,23 @@ nav {
 }
 .vlog-body h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
 .vlog-body p { color: #7A8099; font-size: 0.82rem; }
-.center { text-align: center; margin-top: 32px; }
+.center { text-align: center; margin-top: 36px; }
 
-/* CONTACT */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-.contact-info h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
-.contact-info p { color: #7A8099; line-height: 1.7; margin-bottom: 24px; }
-.bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.bullets li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background-color: #00E57B; flex-shrink: 0; }
-
-.form-box {
-  background-color: #1C202B;
+/* Subscribe band */
+.sub-band {
+  margin-top: 40px;
+  background: linear-gradient(135deg, rgba(255,0,0,0.09), rgba(123,97,255,0.09));
   border: 1px solid #252933;
   border-radius: 14px;
   padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
 }
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-.field label { font-size: 0.8rem; font-weight: 600; color: #7A8099; }
-.field input,
-.field select,
-.field textarea {
-  background-color: #151820;
-  border: 1px solid #252933;
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: #E8EAF0;
-  font-family: Arial, sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-  width: 100%;
-}
-.field input:focus,
-.field select:focus,
-.field textarea:focus { border-color: #00D4FF; }
-.field textarea { resize: vertical; min-height: 120px; }
-.field select option { background-color: #1C202B; }
-.submit {
-  width: 100%;
-  background-color: #00D4FF;
-  color: #0D0F14;
-  border: none;
-  border-radius: 8px;
-  padding: 14px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-}
-.submit:hover { opacity: 0.88; }
-.success { display: none; text-align: center; padding: 32px 16px; }
-.success .tick { font-size: 3rem; margin-bottom: 16px; }
-.success h3 { font-size: 1.2rem; color: #00E57B; margin-bottom: 8px; }
-.success p { color: #7A8099; font-size: 0.9rem; }
+.sub-band h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+.sub-band p { color: #7A8099; font-size: 0.88rem; max-width: 460px; }
 
 /* ABOUT */
 .about-wrap {
@@ -319,10 +408,89 @@ nav {
 .social-btn:hover { opacity: 0.8; }
 .yt-btn { background-color: #FF0000; color: #fff; }
 .email-btn { background-color: #1C202B; border: 1px solid #252933; color: #E8EAF0; }
-@media (max-width: 600px) {
-  .about-wrap { grid-template-columns: 1fr; text-align: center; }
-  .avatar { margin: 0 auto; }
-  .social-links { justify-content: center; }
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.contact-info h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+.contact-info p { color: #7A8099; line-height: 1.7; margin-bottom: 24px; }
+.bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.bullets li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background-color: #00E57B; flex-shrink: 0; }
+
+.form-box {
+  background-color: #1C202B;
+  border: 1px solid #252933;
+  border-radius: 14px;
+  padding: 32px;
+}
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label { font-size: 0.8rem; font-weight: 600; color: #7A8099; }
+.field input,
+.field select,
+.field textarea {
+  background-color: #151820;
+  border: 1px solid #252933;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #E8EAF0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  width: 100%;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: #00D4FF; }
+.field textarea { resize: vertical; min-height: 120px; }
+.field select option { background-color: #1C202B; }
+.field.invalid input,
+.field.invalid select,
+.field.invalid textarea { border-color: #FF6B6B; }
+.form-err {
+  display: none;
+  color: #FF6B6B;
+  font-size: 0.83rem;
+  margin-bottom: 12px;
+}
+.form-err.show { display: block; }
+.submit {
+  width: 100%;
+  background-color: #00D4FF;
+  color: #0D0F14;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.submit:hover { opacity: 0.88; }
+.form-note { color: #7A8099; font-size: 0.78rem; margin-top: 12px; text-align: center; }
+.form-note a { color: #00D4FF; text-decoration: none; }
+
+.success { display: none; text-align: center; padding: 16px 8px; }
+.success .tick { font-size: 3rem; margin-bottom: 16px; }
+.success h3 { font-size: 1.2rem; color: #00E57B; margin-bottom: 8px; }
+.success p { color: #7A8099; font-size: 0.9rem; margin-bottom: 18px; }
+.success .fallback {
+  display: inline-block;
+  background-color: #00D4FF; color: #0D0F14;
+  padding: 11px 22px; border-radius: 8px;
+  font-weight: 700; font-size: 0.9rem; text-decoration: none;
+  margin-bottom: 14px;
+}
+.success .reset {
+  display: block; margin: 0 auto;
+  background: none; border: none; cursor: pointer;
+  color: #7A8099; font-size: 0.82rem; text-decoration: underline;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* FOOTER */
@@ -334,29 +502,66 @@ footer {
   font-size: 0.85rem;
 }
 footer a { color: #00D4FF; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
 
 /* RESPONSIVE */
-@media (max-width: 700px) {
-  .hero h1 { font-size: 2rem; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .row2 { grid-template-columns: 1fr; }
+@media (max-width: 820px) {
   .nav-links { display: none; }
+  .nav-yt span { display: none; }
+  .menu-btn { display: block; }
+  .nav-btn { display: none; }
+}
+@media (max-width: 700px) {
+  nav { padding: 14px 20px; }
+  .hero h1 { font-size: 2rem; }
+  .section { padding: 60px 20px; }
+  .section-title { font-size: 1.6rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .row2 { grid-template-columns: 1fr; }
+  .about-wrap { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+  .avatar { margin: 0 auto; }
+  .social-links { justify-content: center; }
+  .sub-band { flex-direction: column; align-items: flex-start; text-align: left; }
+  .form-box { padding: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
 }
 </style>
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to content</a>
 
 <!-- NAV -->
 <nav>
   <a class="logo" href="#">Fix<span>MyPC</span></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
+    <li><a href="#how">How it works</a></li>
     <li><a href="#vlogs">Vlogs</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a class="nav-btn" href="#contact">Get Help</a>
+  <div class="nav-right">
+    <a class="nav-yt" id="nav-yt" href="#" target="_blank" rel="noopener">&#9654; <span>YouTube</span></a>
+    <a class="nav-btn" href="#contact">Get Help</a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">&#9776;</button>
+  </div>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services">Services</a>
+  <a href="#how">How it works</a>
+  <a href="#vlogs">Vlogs</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="#" id="menu-yt" target="_blank" rel="noopener" style="color:#FF5B5B">&#9654; Watch on YouTube</a>
+</div>
+
+<main id="main">
 
 <!-- HERO -->
 <div class="hero">
@@ -365,10 +570,10 @@ footer a { color: #00D4FF; text-decoration: none; }
     Your PC acting up?
     <span class="blue">I'll fix it.</span>
   </h1>
-  <p>Windows, Linux, Mac, printer drivers, software crashes — if it's a software problem I can sort it out. Watch my vlogs or reach out directly.</p>
+  <p>Windows, Linux, Mac, printer drivers, software crashes &mdash; if it's a software problem I can sort it out. Watch my vlogs or reach out directly.</p>
   <div class="hero-btns">
     <a class="btn-main" href="#contact">Contact Me</a>
-    <a class="btn-outline" href="#vlogs">Watch Vlogs</a>
+    <a class="btn-yt" id="hero-yt" href="#" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>
   </div>
 </div>
 
@@ -376,7 +581,7 @@ footer a { color: #00D4FF; text-decoration: none; }
 <div class="section-divider">
 <div class="section" id="services">
   <p class="label">What I fix</p>
-  <h2 class="section-title">Software problems — done right</h2>
+  <h2 class="section-title">Software problems &mdash; done right</h2>
   <p class="section-sub">I specialise in software fixes and basic hardware part swaps for laptops, desktops and printers.</p>
 
   <div class="grid-3">
@@ -388,7 +593,7 @@ footer a { color: #00D4FF; text-decoration: none; }
     <div class="card">
       <div class="card-icon ic-purple">&#128039;</div>
       <h3>Linux Setup &amp; Support</h3>
-      <p>Ubuntu, Fedora, Mint, Arch — distro installs, dual boot config, package issues, and terminal help.</p>
+      <p>Ubuntu, Fedora, Mint, Arch &mdash; distro installs, dual boot config, package issues, and terminal help.</p>
     </div>
     <div class="card">
       <div class="card-icon ic-green">&#63743;</div>
@@ -398,7 +603,7 @@ footer a { color: #00D4FF; text-decoration: none; }
     <div class="card">
       <div class="card-icon ic-orange">&#128424;</div>
       <h3>Printer Software Issues</h3>
-      <p>Driver installation, printer not detected, stuck print queues, wireless setup — software side only.</p>
+      <p>Driver installation, printer not detected, stuck print queues, wireless setup &mdash; software side only.</p>
     </div>
     <div class="card">
       <div class="card-icon ic-blue">&#128034;</div>
@@ -426,8 +631,35 @@ footer a { color: #00D4FF; text-decoration: none; }
     <span class="notice-icon">&#9888;&#65039;</span>
     <p>
       <strong>Please note:</strong> I handle <strong>software issues</strong> and <strong>basic part replacements</strong> such as RAM, SSDs, and keyboards.
-      I do <strong>not</strong> do chip-level or motherboard repairs. If it needs soldering or board-level work, you'll need a specialist — but for everything else, I've got you covered.
+      I do <strong>not</strong> do chip-level or motherboard repairs. If it needs soldering or board-level work, you'll need a specialist &mdash; but for everything else, I've got you covered.
     </p>
+  </div>
+</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section-divider">
+<div class="section" id="how">
+  <p class="label">How it works</p>
+  <h2 class="section-title">Three steps, no runaround</h2>
+  <p class="section-sub">Most software issues are sorted in a single remote session. You don't need to bring the machine anywhere.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Tell me the problem</h3>
+      <p>Use the form or email me. Mention the device, the OS, and the exact error message you're seeing.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Get a diagnosis</h3>
+      <p>I reply with what's likely wrong, what it'll involve, and whether it can be done remotely or needs hands-on work.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Fix it together</h3>
+      <p>We do a remote session, or you follow my step-by-step guide. If there's a video on it, I'll link you straight to it.</p>
+    </div>
   </div>
 </div>
 </div>
@@ -437,46 +669,20 @@ footer a { color: #00D4FF; text-decoration: none; }
 <div class="section">
   <p class="label">Vlogs</p>
   <h2 class="section-title">Watch, learn, fix it yourself</h2>
-  <p class="section-sub">Tutorials and tech tips updated regularly. Replace the links below with your YouTube videos.</p>
+  <p class="section-sub">Tutorials and tech tips, updated regularly. Every card below is generated from the video list in the page source &mdash; paste a YouTube link and the thumbnail, title and link fill in automatically.</p>
 
-  <div class="vlog-grid">
-    <a class="vlog-card" href="https://youtube.com/@panwar0911" target="_blank">
-      <div class="vlog-thumb">
-        <div class="play">&#9654;</div>
-        <span>https://youtube.com/@panwar0911</span>
-      </div>
-      <div class="vlog-body">
-        <p class="vlog-tag">Windows</p>
-        <h3>How to do a Clean Windows 11 Install from USB</h3>
-        <p>Step-by-step guide — no bloatware, no confusion.</p>
-      </div>
-    </a>
-    <a class="vlog-card" href="#" target="_blank">
-      <div class="vlog-thumb">
-        <div class="play">&#9654;</div>
-        <span>Add your YouTube link</span>
-      </div>
-      <div class="vlog-body">
-        <p class="vlog-tag">Linux</p>
-        <h3>Ubuntu vs Linux Mint — Which Should You Install?</h3>
-        <p>Honest comparison for everyday users switching from Windows.</p>
-      </div>
-    </a>
-    <a class="vlog-card" href="#" target="_blank">
-      <div class="vlog-thumb">
-        <div class="play">&#9654;</div>
-        <span>Add your YouTube link</span>
-      </div>
-      <div class="vlog-body">
-        <p class="vlog-tag">Printer</p>
-        <h3>Fix: Printer Not Showing Up on Windows 10/11</h3>
-        <p>Driver reset, spooler fix, and manual IP setup — all covered.</p>
-      </div>
-    </a>
-  </div>
+  <div class="vlog-grid" id="vlog-grid"></div>
 
   <div class="center">
-    <a class="btn-outline" href="#" target="_blank">&#9654; &nbsp; View All Videos on YouTube</a>
+    <a class="btn-outline" id="all-videos" href="#" target="_blank" rel="noopener">&#9654; &nbsp; View All Videos on YouTube</a>
+  </div>
+
+  <div class="sub-band">
+    <div>
+      <h3>New tutorials every week</h3>
+      <p>Subscribe on YouTube so you catch the fixes before the problem does. Free, and it helps the channel a lot.</p>
+    </div>
+    <a class="btn-yt" id="sub-yt" href="#" target="_blank" rel="noopener">&#9654; Subscribe on YouTube</a>
   </div>
 </div>
 </div>
@@ -490,14 +696,10 @@ footer a { color: #00D4FF; text-decoration: none; }
     <div class="about-text">
       <h2>Varun Singh</h2>
       <p class="role">&#128187; Tech Support &amp; Content Creator</p>
-      <p>Hey! I'm Varun, a self-taught tech enthusiast helping people fix software issues on Windows, Linux, and macOS. I also create tutorial vlogs to help you solve problems yourself. Whether you need hands-on help or just want to learn — I've got you covered.</p>
+      <p>Hey! I'm Varun, a self-taught tech enthusiast helping people fix software issues on Windows, Linux, and macOS. I also create tutorial vlogs to help you solve problems yourself. Whether you need hands-on help or just want to learn &mdash; I've got you covered.</p>
       <div class="social-links">
-        <a class="social-btn yt-btn" href="https://youtube.com/@panwar0911" target="_blank">
-          &#9654; YouTube
-        </a>
-        <a class="social-btn email-btn" href="mailto:Varunsingh09@proton.me">
-          &#9993; Varunsingh09@proton.me
-        </a>
+        <a class="social-btn yt-btn" id="about-yt" href="#" target="_blank" rel="noopener">&#9654; YouTube</a>
+        <a class="social-btn email-btn" id="about-email" href="#">&#9993; Email me</a>
       </div>
     </div>
   </div>
@@ -510,7 +712,7 @@ footer a { color: #00D4FF; text-decoration: none; }
   <div class="contact-grid">
     <div class="contact-info">
       <p class="label">Get in touch</p>
-      <h2>Describe your issue — I'll take a look</h2>
+      <h2>Describe your issue &mdash; I'll take a look</h2>
       <p>Fill in the form with as much detail as you can. I'll get back to you with a fix, a video call, or a step-by-step guide.</p>
       <ul class="bullets">
         <li><span class="dot"></span> Windows, Linux &amp; macOS issues</li>
@@ -527,75 +729,292 @@ footer a { color: #00D4FF; text-decoration: none; }
     <div class="form-box">
       <div id="form-fields">
         <div class="row2">
-          <div class="field">
-            <label>Your Name</label>
-            <input type="text" id="f-name" placeholder="Alex Smith">
+          <div class="field" id="w-name">
+            <label for="f-name">Your Name</label>
+            <input type="text" id="f-name" placeholder="Alex Smith" autocomplete="name">
           </div>
-          <div class="field">
-            <label>Email Address</label>
-            <input type="email" id="f-email" placeholder="alex@email.com">
+          <div class="field" id="w-email">
+            <label for="f-email">Email Address</label>
+            <input type="email" id="f-email" placeholder="alex@email.com" autocomplete="email">
           </div>
         </div>
-        <div class="field">
-          <label>Type of Issue</label>
+        <div class="field" id="w-issue">
+          <label for="f-issue">Type of Issue</label>
           <select id="f-issue">
             <option value="" disabled selected>Select a category...</option>
-            <option>Windows — Installation / Repair</option>
-            <option>Windows — Slow / Crashing</option>
-            <option>Linux — Install / Setup</option>
-            <option>macOS — Troubleshooting</option>
-            <option>Printer — Driver / Software</option>
+            <option>Windows &mdash; Installation / Repair</option>
+            <option>Windows &mdash; Slow / Crashing</option>
+            <option>Linux &mdash; Install / Setup</option>
+            <option>macOS &mdash; Troubleshooting</option>
+            <option>Printer &mdash; Driver / Software</option>
             <option>Virus / Malware Removal</option>
             <option>Software Installation / Troubleshooting</option>
             <option>Basic Hardware Part Replacement</option>
             <option>Other Issue</option>
           </select>
         </div>
-        <div class="field">
-          <label>Device &amp; OS (e.g. Dell laptop, Windows 11)</label>
+        <div class="field" id="w-device">
+          <label for="f-device">Device &amp; OS (e.g. Dell laptop, Windows 11)</label>
           <input type="text" id="f-device" placeholder="HP laptop, Windows 10">
         </div>
-        <div class="field">
-          <label>Describe the Problem</label>
+        <div class="field" id="w-msg">
+          <label for="f-msg">Describe the Problem</label>
           <textarea id="f-msg" placeholder="Tell me what's happening — error messages, when it started, what you've already tried..."></textarea>
         </div>
-        <button class="submit" onclick="submitForm()">Send Message &rarr;</button>
+        <div class="form-err" id="form-err" role="alert"></div>
+        <button class="submit" id="submit-btn" type="button">Send Message &rarr;</button>
+        <p class="form-note">This opens your email app with the details filled in. Prefer to write directly? <a id="direct-email" href="#">Email me instead</a>.</p>
       </div>
 
       <div class="success" id="form-success">
         <div class="tick">&#9989;</div>
-        <h3>Message received!</h3>
-        <p>Thanks for reaching out. I'll review your issue and get back to you as soon as possible.</p>
+        <h3>Almost there &mdash; hit send</h3>
+        <p>Your email app should have opened with everything filled in. Just press send and I'll get back to you.</p>
+        <a class="fallback" id="mailto-fallback" href="#">Open email app again</a>
+        <button class="reset" id="form-reset" type="button">Didn't work? Go back to the form</button>
       </div>
     </div>
   </div>
 </div>
 </div>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 <strong style="color:#E8EAF0">Varun Singh</strong> &nbsp;&middot;&nbsp; FixMyPC Service &nbsp;&middot;&nbsp; Built with &#10084;&#65039;</p>
+  <p>&copy; <span id="year">2026</span> <strong style="color:#E8EAF0">Varun Singh</strong> &nbsp;&middot;&nbsp; FixMyPC Service</p>
   <p style="margin-top:8px;">
-    <a href="https://youtube.com/@panwar0911" target="_blank">YouTube</a>
+    <a id="foot-yt" href="#" target="_blank" rel="noopener">YouTube</a>
     &nbsp;&middot;&nbsp;
-    <a href="mailto:Varunsingh09@proton.me">Varunsingh09@proton.me</a>
+    <a id="foot-email" href="#">Email</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/Botnet1109/FixMyPC-Service" target="_blank" rel="noopener">GitHub</a>
   </p>
   <p style="margin-top:8px; font-size:0.8rem;">Software fixes + basic part replacements &mdash; no chip-level or motherboard repairs.</p>
 </footer>
 
 <script>
-function submitForm() {
-  var name = document.getElementById('f-name').value.trim();
-  var email = document.getElementById('f-email').value.trim();
-  var issue = document.getElementById('f-issue').value;
-  var msg = document.getElementById('f-msg').value.trim();
-  if (!name || !email || !issue || !msg) {
-    alert('Please fill in all fields before sending.');
-    return;
+/* ============================================================
+   EDIT THIS BLOCK ONLY — everything else updates itself
+   ============================================================ */
+
+// Your channel + email. Change these once and every link on the page updates.
+var CHANNEL_URL = "https://youtube.com/@panwar0911";
+var CHANNEL_VIDEOS_URL = CHANNEL_URL + "/videos";
+var EMAIL = "Varunsingh09@proton.me";
+
+// ------------------------------------------------------------
+// VIDEOS — to add a video, copy one line and change the three values.
+// Paste ANY YouTube link format; the thumbnail and video ID are
+// pulled out automatically:
+//   https://www.youtube.com/watch?v=dQw4w9WgXcQ
+//   https://youtu.be/dQw4w9WgXcQ
+//   https://www.youtube.com/shorts/dQw4w9WgXcQ
+//   https://www.youtube.com/live/dQw4w9WgXcQ
+//
+// Fields:
+//   url   — the YouTube link (required). Leave as "" to show a
+//           card that just links to your channel instead.
+//   tag   — small purple label, e.g. "Windows", "Linux", "Printer"
+//   title — video title
+//   desc  — one short line of description
+//
+// Add as many as you like — the grid wraps automatically.
+// Delete a whole { ... } block to remove a card.
+// ------------------------------------------------------------
+var VIDEOS = [
+  {
+    url:   "",
+    tag:   "Windows",
+    title: "How to do a Clean Windows 11 Install from USB",
+    desc:  "Step-by-step guide — no bloatware, no confusion."
+  },
+  {
+    url:   "",
+    tag:   "Linux",
+    title: "Ubuntu vs Linux Mint — Which Should You Install?",
+    desc:  "Honest comparison for everyday users switching from Windows."
+  },
+  {
+    url:   "",
+    tag:   "Printer",
+    title: "Fix: Printer Not Showing Up on Windows 10/11",
+    desc:  "Driver reset, spooler fix, and manual IP setup — all covered."
   }
-  document.getElementById('form-fields').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
-}
+];
+
+/* ============================================================
+   Nothing below here needs editing
+   ============================================================ */
+
+(function () {
+  "use strict";
+
+  // --- Pull a video ID out of any YouTube URL shape ---
+  function videoId(url) {
+    if (!url) return "";
+    var m = url.match(/(?:v=|\/embed\/|youtu\.be\/|\/shorts\/|\/live\/|\/v\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : "";
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  // --- Wire up every channel / email link from the config ---
+  var mailHref = "mailto:" + EMAIL;
+  ["nav-yt", "menu-yt", "hero-yt", "all-videos", "sub-yt", "about-yt", "foot-yt"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.href = (id === "all-videos") ? CHANNEL_VIDEOS_URL : CHANNEL_URL;
+  });
+  ["about-email", "foot-email", "direct-email"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.href = mailHref;
+  });
+  var aboutEmail = document.getElementById("about-email");
+  if (aboutEmail) aboutEmail.innerHTML = "&#9993; " + esc(EMAIL);
+
+  // --- Render the video grid ---
+  var grid = document.getElementById("vlog-grid");
+  if (grid) {
+    grid.innerHTML = VIDEOS.map(function (v) {
+      var id = videoId(v.url);
+      var href = id ? ("https://www.youtube.com/watch?v=" + id) : CHANNEL_URL;
+      var thumb = "";
+
+      if (id) {
+        thumb =
+          '<img src="https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg" ' +
+          'alt="" loading="lazy" ' +
+          'onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg\'">';
+      }
+
+      return (
+        '<a class="vlog-card" href="' + esc(href) + '" target="_blank" rel="noopener">' +
+          '<div class="vlog-thumb">' + thumb +
+            '<div class="play">&#9654;</div>' +
+          '</div>' +
+          '<div class="vlog-body">' +
+            (v.tag ? '<p class="vlog-tag">' + esc(v.tag) + '</p>' : '') +
+            '<h3>' + esc(v.title) + '</h3>' +
+            (v.desc ? '<p>' + esc(v.desc) + '</p>' : '') +
+          '</div>' +
+        '</a>'
+      );
+    }).join("");
+  }
+
+  // --- Mobile menu ---
+  var menuBtn = document.getElementById("menu-btn");
+  var menu = document.getElementById("mobile-menu");
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      var open = menu.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      menuBtn.innerHTML = open ? "&#10005;" : "&#9776;";
+    });
+    menu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        menu.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Open menu");
+        menuBtn.innerHTML = "&#9776;";
+      });
+    });
+  }
+
+  // --- Contact form: builds a real email instead of pretending ---
+  var nameEl   = document.getElementById("f-name");
+  var emailEl  = document.getElementById("f-email");
+  var issueEl  = document.getElementById("f-issue");
+  var deviceEl = document.getElementById("f-device");
+  var msgEl    = document.getElementById("f-msg");
+  var errEl    = document.getElementById("form-err");
+  var fields   = document.getElementById("form-fields");
+  var success  = document.getElementById("form-success");
+  var fallback = document.getElementById("mailto-fallback");
+
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function markWrap(inputId, bad) {
+    var w = document.getElementById("w-" + inputId);
+    if (w) w.classList.toggle("invalid", !!bad);
+  }
+
+  function buildMailto() {
+    var subject = "[FixMyPC] " + issueEl.value + " — " + nameEl.value;
+    var body =
+      "Name: " + nameEl.value + "\n" +
+      "Email: " + emailEl.value + "\n" +
+      "Issue: " + issueEl.value + "\n" +
+      "Device / OS: " + (deviceEl.value || "not specified") + "\n\n" +
+      "Problem:\n" + msgEl.value;
+    return mailHref +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+  }
+
+  function submitForm() {
+    var problems = [];
+
+    markWrap("name", !nameEl.value.trim());
+    markWrap("email", !emailRe.test(emailEl.value.trim()));
+    markWrap("issue", !issueEl.value);
+    markWrap("msg", !msgEl.value.trim());
+
+    if (!nameEl.value.trim()) problems.push("your name");
+    if (!emailRe.test(emailEl.value.trim())) problems.push("a valid email address");
+    if (!issueEl.value) problems.push("the type of issue");
+    if (!msgEl.value.trim()) problems.push("a short description of the problem");
+
+    if (problems.length) {
+      errEl.textContent = "Please add " + problems.join(", ") + ".";
+      errEl.classList.add("show");
+      return;
+    }
+
+    errEl.classList.remove("show");
+
+    var href = buildMailto();
+    fallback.href = href;
+    window.location.href = href;
+
+    fields.style.display = "none";
+    success.style.display = "block";
+  }
+
+  var submitBtn = document.getElementById("submit-btn");
+  if (submitBtn) submitBtn.addEventListener("click", submitForm);
+
+  // Clear the error state as soon as the person starts fixing things
+  [nameEl, emailEl, issueEl, deviceEl, msgEl].forEach(function (el) {
+    if (!el) return;
+    el.addEventListener("input", function () {
+      var key = { "f-name": "name", "f-email": "email", "f-issue": "issue", "f-msg": "msg" }[el.id];
+      if (key) markWrap(key, false);
+    });
+    el.addEventListener("change", function () {
+      var key = { "f-name": "name", "f-email": "email", "f-issue": "issue", "f-msg": "msg" }[el.id];
+      if (key) markWrap(key, false);
+    });
+  });
+
+  var resetBtn = document.getElementById("form-reset");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      success.style.display = "none";
+      fields.style.display = "block";
+    });
+  }
+
+  // --- Footer year ---
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
 </script>
 
 </body>
